@@ -7,6 +7,8 @@ const Interactor = (props) => {
   const [passive, setPassive] = useState("");
   const [partner, setPartner] = useState([]);
 
+  // The props.onChangeValue is a function defined on the parent component
+  //  that lifts the state from this component
   const chainChangeHandler = (event) => {
     setChain(event.target.value);
     props.onChangeValue(props.id, "chain", event.target.value);

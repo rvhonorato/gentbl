@@ -22,6 +22,7 @@ const BuilderForm = (props) => {
   const [restraints, manipulateInteractor] = useState(DUMMY_RESTRAINTS);
 
   const handleFormSubmit = (event) => {
+    // Handles the form submission
     event.preventDefault();
 
     // ------------------------------------
@@ -35,8 +36,9 @@ const BuilderForm = (props) => {
   };
 
   const handleAddClick = () => {
-    // Add a new object to the array
+    // Adds a new object to the array
     // id must be unique, get the largest id and add 1
+    // -- aka add a new Interactor
     let highestId = Math.max(
       ...restraints.map((restraints) => parseInt(restraints.id))
     );
@@ -54,6 +56,7 @@ const BuilderForm = (props) => {
 
   const handleRemoveClick = (id) => {
     // Remove a specific object from the array
+    //  -- aka remove one of the Interactor
     console.log("from Builder.js - removing interactor with id: ", id);
     let array = [...restraints];
     let index = array.findIndex((item) => item.id === id);
@@ -62,31 +65,35 @@ const BuilderForm = (props) => {
   };
 
   const handleChangeValues = (id, field, value) => {
-    // console.log(id);
-    // console.log(field);
-    // console.log(value);
+    // This function listens to values being changed in the Interactor component
+    //  and updates the current restraints array
     let array = [...restraints];
     let index = array.findIndex((item) => item.id === id);
     array[index][field] = value;
     manipulateInteractor(array);
-    // console.log(array);
   };
+
+  // Render the Interactor components based on how many
+  //  elements there are in the restraints array
+  const interactorlist = restraints.map((restraints) => (
+    <Interactor
+      items={restraints}
+      key={restraints.id}
+      id={restraints.id}
+      onChangeValue={handleChangeValues}
+      onRemoveBtnPress={handleRemoveClick}
+    />
+  ));
 
   return (
     <div>
       <form onSubmit={handleFormSubmit}>
-        {restraints.map((restraints) => (
-          <Interactor
-            items={restraints}
-            key={restraints.id}
-            id={restraints.id}
-            onChangeValue={handleChangeValues}
-            onRemoveBtnPress={handleRemoveClick}
-          />
-        ))}
+        {interactorlist}
+
         <button type="button" onClick={handleAddClick}>
           Add Interactor
         </button>
+
         <button type="submit">Generate Restraints</button>
       </form>
     </div>
@@ -94,6 +101,7 @@ const BuilderForm = (props) => {
 };
 
 const genTBL = (input_array) => {
+  // Generate the TBL file
   let tbl = JSON.stringify(input_array);
   return tbl;
 };

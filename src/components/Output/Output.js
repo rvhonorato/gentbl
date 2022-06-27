@@ -1,5 +1,9 @@
 const Output = (props) => {
-  return <div>{props.value}</div>;
+  return (
+    <div>
+      <pre>{props.value}</pre>
+    </div>
+  );
 };
 
 export default Output;
