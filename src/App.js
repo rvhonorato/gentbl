@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import BuilderForm from "./components/Builder/BuilderForm";
+import Output from "./components/Output/Output";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [output, setOutput] = useState("");
+
+  const getOutput = (tbl) => {
+    setOutput("Your restraints go here: " + tbl);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BuilderForm onGeneration={getOutput} />
+      <Output value={output} />
     </div>
   );
-}
+};
 
 export default App;
