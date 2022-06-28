@@ -12,7 +12,7 @@ const App = () => {
   // Lift the state from the BuilderForm and send it over
   //  to the Output component
   const getOutput = (tbl) => {
-    setOutput(tbl);
+    setOutput("!\n! HADDOCK AIR restraints\n!\n" + tbl);
   };
 
   return (
