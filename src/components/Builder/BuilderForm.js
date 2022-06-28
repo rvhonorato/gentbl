@@ -1,5 +1,9 @@
 import { useState } from "react";
 import Interactor from "../Interactors/Interactor";
+import { genTBL } from "../../utils";
+
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 
 const DUMMY_RESTRAINTS = [
   {
@@ -27,9 +31,7 @@ const BuilderForm = (props) => {
 
     // ------------------------------------
     // The logic to generate the TBL goes here
-    console.log(restraints);
     let tbl = genTBL(restraints);
-    console.log(tbl);
     // ------------------------------------
 
     props.onGeneration(tbl);
@@ -86,24 +88,27 @@ const BuilderForm = (props) => {
   ));
 
   return (
-    <div>
-      <form onSubmit={handleFormSubmit}>
-        {interactorlist}
-
-        <button type="button" onClick={handleAddClick}>
-          Add Interactor
-        </button>
-
-        <button type="submit">Generate Restraints</button>
-      </form>
-    </div>
+    <form onSubmit={handleFormSubmit} style={{ marginTop: "20px" }}>
+      {interactorlist}
+      <Grid
+        container
+        spacing={2}
+        direction="column"
+        alignItems="center"
+        justifyContent="center">
+        <Grid item>
+          <Button variant="outlined" type="button" onClick={handleAddClick}>
+            Add Interactor
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" type="submit">
+            Generate Restraints
+          </Button>
+        </Grid>
+      </Grid>
+    </form>
   );
-};
-
-const genTBL = (input_array) => {
-  // Generate the TBL file
-  let tbl = JSON.stringify(input_array);
-  return tbl;
 };
 
 export default BuilderForm;

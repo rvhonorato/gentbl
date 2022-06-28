@@ -1,5 +1,11 @@
 import { useState } from "react";
-import Card from "../UI/Card";
+
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import TextField from "@mui/material/TextField";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 const Interactor = (props) => {
   const [chain, setChain] = useState("");
@@ -23,6 +29,7 @@ const Interactor = (props) => {
   };
   const partnerChangeHandler = (event) => {
     setPartner(event.target.value);
+    props.onChangeValue(props.id, "partner", event.target.value);
   };
 
   const handleRemoveClick = () => {
@@ -30,45 +37,63 @@ const Interactor = (props) => {
   };
 
   return (
-    <Card>
-      <div className="interactor">
-        <p>Interactor {props.id}</p>
-
-        <label htmlFor="passive-res">Chain</label>
-        <input
-          id="passive-res"
-          type="text"
+    <Card style={{ margin: "20px" }}>
+      <CardContent>
+        <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
+          Interactor {props.id}
+        </Typography>
+        <TextField
+          id="standard-basic"
+          label="Chain"
+          variant="standard"
+          required
+          style={{ padding: "5px" }}
           value={chain}
           onChange={chainChangeHandler}
         />
 
-        <label htmlFor="active-res">Active</label>
-        <input
-          id="active-res"
+        <TextField
+          id="standard-basic"
+          label="Active"
+          variant="standard"
+          required
           type="text"
+          style={{ padding: "5px" }}
           value={active}
           onChange={activeChangeHandler}
         />
 
-        <label htmlFor="passive-res">Passive</label>
-        <input
-          id="passive-res"
+        <TextField
+          // required
+          id="standard-basic"
+          label="Passive"
+          variant="standard"
           type="text"
+          style={{ padding: "5px" }}
           value={passive}
           onChange={passiveChangeHandler}
         />
 
-        <label htmlFor="partners">Partner</label>
-        <input
-          id="partners"
+        <TextField
+          required
+          label="Partner"
+          variant="standard"
+          id="standard-basic"
           type="text"
+          style={{ padding: "5px" }}
           value={partner}
           onChange={partnerChangeHandler}
         />
-      </div>
-      <button type="button" onClick={handleRemoveClick}>
-        Remove
-      </button>
+
+        {/* <CardActions> */}
+        <IconButton
+          aria-label="delete"
+          type="button"
+          onClick={handleRemoveClick}>
+          <DeleteIcon />
+        </IconButton>
+        {/* </CardActions> */}
+      </CardContent>
     </Card>
   );
 };
