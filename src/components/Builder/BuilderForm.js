@@ -4,6 +4,11 @@ import { genTBL } from "../../utils";
 
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
+
+import CloseIcon from "@mui/icons-material/Close";
 
 const DUMMY_RESTRAINTS = [
   {
@@ -24,6 +29,7 @@ const DUMMY_RESTRAINTS = [
 
 const BuilderForm = (props) => {
   const [restraints, manipulateInteractor] = useState(DUMMY_RESTRAINTS);
+  const [warning, setWarning] = useState(false);
 
   const handleFormSubmit = (event) => {
     // Handles the form submission
@@ -59,11 +65,18 @@ const BuilderForm = (props) => {
   const handleRemoveClick = (id) => {
     // Remove a specific object from the array
     //  -- aka remove one of the Interactor
-    console.log("from Builder.js - removing interactor with id: ", id);
-    let array = [...restraints];
-    let index = array.findIndex((item) => item.id === id);
-    array.splice(index, 1);
-    manipulateInteractor(array);
+    // We need to have at least 2 interactors
+    if (restraints.length > 2) {
+      console.log("from Builder.js - removing interactor with id: ", id);
+      let array = [...restraints];
+      let index = array.findIndex((item) => item.id === id);
+      array.splice(index, 1);
+      manipulateInteractor(array);
+    } else {
+      // setAlert(true);
+      setWarning(true);
+      console.log("Need at least 2 interactors");
+    }
   };
 
   const handleChangeValues = (id, field, value) => {
@@ -73,6 +86,10 @@ const BuilderForm = (props) => {
     let index = array.findIndex((item) => item.id === id);
     array[index][field] = value;
     manipulateInteractor(array);
+    if (restraints.length <= 2) {
+      // setAlert(false);
+      setWarning(false);
+    }
   };
 
   // Render the Interactor components based on how many
@@ -89,7 +106,28 @@ const BuilderForm = (props) => {
 
   return (
     <form onSubmit={handleFormSubmit} style={{ marginTop: "20px" }}>
+      {/* Warning */}
+      <Collapse in={warning}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setWarning(false);
+              }}>
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+          severity="warning">
+          Must have at least 2 interactors
+        </Alert>
+      </Collapse>
+
       {interactorlist}
+
       <Grid
         container
         spacing={2}

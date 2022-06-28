@@ -4,7 +4,7 @@
 
 🚧 🚧 🚧 This is still a work-in-progress 🚧 🚧 🚧
 
-Main branch published at: https://regal-moonbeam-3dfa66.netlify.app
+Main branch published at: <https://regal-moonbeam-3dfa66.netlify.app>
 
 ```text
 yarn install
