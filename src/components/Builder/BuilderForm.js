@@ -131,15 +131,25 @@ const BuilderForm = (props) => {
       <Grid
         container
         spacing={2}
-        direction="column"
+        // direction="column"
         alignItems="center"
         justifyContent="center">
-        <Grid item>
+        {/* <Grid item xs={2}>
+          <Button
+            variant="outlined"
+            type="button"
+            color="error"
+            // onClick={handleClearClick}
+            disabled>
+            Clear
+          </Button>
+        </Grid> */}
+        <Grid item xs={4}>
           <Button variant="outlined" type="button" onClick={handleAddClick}>
             Add Interactor
           </Button>
         </Grid>
-        <Grid item>
+        <Grid item xs={4}>
           <Button variant="contained" type="submit">
             Generate Restraints
           </Button>
